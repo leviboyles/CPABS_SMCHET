@@ -1,0 +1,24 @@
+<tool id="cpabs" name="cpabs" version="0.1.0">
+    <requirements>
+    </requirements>
+    <stdio>
+        <exit_code range="1:" />
+    </stdio>
+    <command><![CDATA[
+        julia /opt/cpabs/cpabs_cmd.jl ${ssm_file} -n ${MCMC_SAMPLES} -j . -w ${WANG_LANDAU_PARTITION} &&
+        gzip trees.json &&
+        gzip mutations.json &&
+        gzip
+]]>
+    <inputs>
+        <param name="ssm_file" type="data" format="tabular" label="Mutation Data"/>
+        <param name="MCMC_SAMPLES" type="integer" value="10000" label="Number of MCMC samples"/>
+        <param name="WANG_LANDAU_PARTITION" type="string" value="[4,5,6,7,Inf]"/>
+    </inputs>
+    <outputs>
+        <data format="binary" name="tree_summary" format="binary" from_work_dir="trees.json.gz"/>
+    </outputs>
+    <help><![CDATA[
+        TODO: Fill in help.
+    ]]></help>
+</tool>
